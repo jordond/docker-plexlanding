@@ -16,7 +16,7 @@ fi
 echo "Installing node dependencies"
 cd /tmp/plexlanding
 npm install --production=false # Needs dev deps too
-npm run build
+gulp build
 
 # Delete all dev deps
 npm prune --production
@@ -30,4 +30,5 @@ cp -r /tmp/plexlanding/node_modules /opt/plexlanding
 # Delete temp dir
 echo "Cleaning up"
 cd /
+chmod -R 755 /opt/plexlanding
 rm -rf /tmp/plexlanding
