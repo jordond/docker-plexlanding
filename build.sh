@@ -15,7 +15,7 @@ fi
 # Install dependencies
 echo "Installing node dependencies"
 cd /tmp/plexlanding
-npm install --production=false # Needs dev deps too
+npm install --production=false 2>&1# Needs dev deps too
 gulp build
 
 # Delete all dev deps
