@@ -1,9 +1,7 @@
 #!/bin/bash
 
 # Expose variables
-NODE_ENV='production'
 NODE_DOCKER=true
-PORT=8000
 
 cd /opt/app
 
@@ -11,5 +9,6 @@ cd /opt/app
 git pull
 npm install --unsafe-perm
 
+# Build and run app in production
 npm run build
 npm start
