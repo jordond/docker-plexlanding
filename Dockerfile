@@ -1,32 +1,21 @@
-FROM node:4.2.3-wheezy
+FROM node:6.2-wheezy
 MAINTAINER jordond
 
-RUN apt-get update && apt-get install -y \
-  curl \
-  git \
-  wget
+RUN apt-get update && apt-get install -y git
 
-RUN rm -rf /var/lib/apt/lists/*
+RUN useradd -u 1000 -m -s /bin/false app
 
-RUN useradd -u 1000 -m -s /bin/bash user
+RUN git clone -b master https://github.com/jordond/plexlanding /opt/app
+RUN ln -s /opt/app/dist/data /data
+COPY start.sh /opt
 
-RUN npm install -g npm gulp webpack tsd
+RUN chown -R app:app /opt/* /data
 
-ADD build.sh /opt
-RUN chmod +x /opt/build.sh
-RUN chown user /opt/build.sh && chmod 755 /opt/build.sh
+USER app
+WORKDIR /opt/app
+RUN npm install --unsafe-perm
 
-VOLUME /config
+EXPOSE 8000
+VOLUME /data
 
-EXPOSE 8777
-
-# Eventually use a pre-build release instead of building it manually
-RUN /opt/build.sh
-
-# Don't run application as root
-USER user
-
-# Start the application
-RUN node /opt/plexlanding/server \
-  --data-dir=/config \
-  --config=/config/config.json
+RUN /opt/start.sh

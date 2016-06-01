@@ -4,29 +4,13 @@ A soon to be container for my [Plex Landing](https://github.com/jordond/plexland
 
 ## Run the container
 
-Sample command to create container.
-
-```
-docker run -d                          \
-  --restart=always                     \
-  --name=plexlanding                   \
-  -p 8444:8444                         \
-  -e NODE_ENV=production               \
-  -v /appdata/apps/plexlanding:/config \
-  -v /etc/localtime:/etc/localtime:ro  \
-  jordond/plexlanding
-```
-
-## (Purposed) Options
-- `-p 8444:8444`: Which port to run on
-- `-e NODE_ENV=(production|development)`: Enviroment to run in, **production** is recommended
-- `-v /path/to:/config`: Persistant location to store application config and data
+Still trying to figure out how to handle this + updates.
 
 #License
 ```
 The MIT License (MIT)
 
-Copyright (c) 2015 Jordon de Hoog
+Copyright (c) 2016 Jordon de Hoog
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
