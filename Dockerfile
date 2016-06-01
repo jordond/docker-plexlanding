@@ -5,7 +5,9 @@ RUN useradd -u 1000 -m -s /bin/false app
 
 COPY start.sh /opt
 RUN git clone -b master https://github.com/jordond/plexlanding /opt/app
-RUN ln -s /opt/app/dist/data /data && chown -R app:app /opt/* /data
+RUN ln -s /opt/app/dist/data /data && \
+  chmod +x /opt/start.sh && \
+  chown -R app:app /opt/* /data
 
 USER app
 WORKDIR /opt/app
