@@ -15,6 +15,9 @@ RUN npm install --silent --unsafe-perm
 
 EXPOSE 8000
 
+ENV NODE_DOCKER=true
+ENV NODE_ENV=production
+ENV PORT=8000
 ENV DATA_DIR=/data
 VOLUME /data
 
