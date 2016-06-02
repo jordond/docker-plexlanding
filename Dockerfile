@@ -1,17 +1,20 @@
 FROM node:6.2-wheezy
 MAINTAINER jordond
 
-RUN useradd -u 1000 -m -s /bin/false app
+RUN echo "deb http://http.debian.net/debian wheezy-backports main" >/etc/apt/sources.list.d/wheezy-backports.list \
+  && apt-get update -qq \
+  && apt-get -t wheezy-backports install -y -qq git \
+  && useradd -u 1000 -m -s /bin/false app
 
-COPY start.sh /opt
-RUN git clone -b master https://github.com/jordond/plexlanding /opt/app
-RUN mkdir /data && \
-  chmod +x /opt/start.sh && \
-  chown -R app:app /opt/* /data
+COPY init /
+RUN git clone https://github.com/jordond/plexlanding -b master /opt/app \
+  && mkdir /data \
+  && chmod +x /init \
+  && chown -R app:app /opt/* /init /data
 
 USER app
 WORKDIR /opt/app
-RUN npm install --silent --unsafe-perm
+RUN npm install --silent --unsafe-perm && npm run build
 
 EXPOSE 8000
 
@@ -21,4 +24,4 @@ ENV PORT=8000
 ENV DATA_DIR=/data
 VOLUME /data
 
-CMD /opt/start.sh
+CMD /init

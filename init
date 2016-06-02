@@ -1,0 +1,53 @@
+#!/bin/bash
+
+# Installs dependencies then builds the application files
+buildApplication () {
+  echo "Installing dependencies and building PlexLanding"
+  npm install --silent --unsafe-perm
+  npm run build
+}
+
+checkForUpdatesAndBuild () {
+  # Update refs with remote repo
+  git fetch
+  LOCAL=$(git rev-parse @)
+  REMOTE=$(git rev-parse @{u})
+
+  # Auto update and install dependencies
+  if [ "$LOCAL" != "$REMOTE" ]; then
+    echo "Update is available"
+    git pull
+    buildApplication
+  else
+    echo "PlexLanding is up to date"
+  fi
+}
+
+# Change into the application directory
+cd /opt/app
+
+# Check if docker was created with different branch variable
+if [ -z ${branch+x} ]; then
+  echo "Using default branch"
+else
+  echo "Using $branch branch"
+  CURRENT=$(git rev-parse --abbrev-ref HEAD)
+  if [ "$CURRENT" != "$branch" ]; then
+    git checkout $branch
+    BUILD_APP=true
+  fi
+fi
+
+# Check whether or not to rebuild the application
+if [ "$BUILD_APP" = true ]; then
+  buildApplication
+else
+  checkForUpdatesAndBuild
+fi
+
+echo ""
+echo "Starting Plex-Landing"
+echo "Map port $PORT to local machine ex: -p 80:$PORT"
+echo ""
+
+node /opt/app/dist/server
