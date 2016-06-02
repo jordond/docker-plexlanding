@@ -1,10 +1,42 @@
 # PlexLanding Docker Container
 
-A soon to be container for my [Plex Landing](https://github.com/jordond/plexlanding) application.
+A container for running [Plex Landing](https://github.com/jordond/plexlanding) application.
+This is the preferred way of running Plex Landing
 
-## Run the container
+## Features
 
-Still trying to figure out how to handle this + updates.
+- Runs Plex Landing in a self contained environment, easy to reinstall/move around.
+- Checks if an update is needed on every restart.  Will automatically update and compile.
+- Ability to:
+  - Persistently store the `/data` directory. (Useful for recreating image)
+  - Change which branch to check for updates from
+
+## Building
+
+**NOTE** Until I have published this to docker hub you will have to:
+- Clone the repo `git clone https://github.com/jordond/docker-plexlanding`
+- Change into directory `cd docker-plexlanding`
+- Build the docker image `docker build -t jordond/plexlanding .`
+
+## Running
+
+```
+docker run -d \
+  --name=plexlanding \
+  --restart=always \
+  -p <PORT>:8000 \
+  -v <PATH_TO_DATA>:/data
+  jordond/plexlanding
+```
+
+### Options
+
+- `-p <PORT>:8000`: Local port to map to server
+- `-v <PATH_TO_DATA>:/data`: Directory to store all application data, ie: database, config, etc
+- `-e branch=<BRANCH>`: _(optional)_ Which branch of plexlanding to use
+  - Defaults to `master` branch
+  - _Only change the branch if you know what your doing, as master is the release branch_
+
 
 #License
 ```
