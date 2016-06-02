@@ -12,6 +12,6 @@ npm run build
 # Expose variables
 NODE_DOCKER=true
 NODE_ENV=production
-PORT= 8000
+PORT=8000
 
 node /opt/app/dist/server
