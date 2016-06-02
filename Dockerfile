@@ -24,4 +24,4 @@ ENV PORT=8000
 ENV DATA_DIR=/data
 VOLUME /data
 
-CMD /init
+ENTRYPOINT ["/init"]
