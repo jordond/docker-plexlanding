@@ -25,7 +25,7 @@ docker run -d \
   --name=plexlanding \
   --restart=always \
   -p <PORT>:8000 \
-  -v <PATH_TO_DATA>:/data
+  -v <PATH_TO_DATA>:/data \
   jordond/plexlanding
 ```
 
