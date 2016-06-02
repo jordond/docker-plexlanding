@@ -5,7 +5,7 @@ RUN useradd -u 1000 -m -s /bin/false app
 
 COPY start.sh /opt
 RUN git clone -b master https://github.com/jordond/plexlanding /opt/app
-RUN ln -s /opt/app/dist/data /data && \
+RUN mkdir /data && \
   chmod +x /opt/start.sh && \
   chown -R app:app /opt/* /data
 
@@ -14,6 +14,8 @@ WORKDIR /opt/app
 RUN npm install --silent --unsafe-perm
 
 EXPOSE 8000
+
+ENV DATA_DIR=/data
 VOLUME /data
 
-RUN /opt/start.sh
+CMD /opt/start.sh
