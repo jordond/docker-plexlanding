@@ -11,7 +11,7 @@ RUN ln -s /opt/app/dist/data /data && \
 
 USER app
 WORKDIR /opt/app
-RUN npm install --unsafe-perm
+RUN npm install --silent --unsafe-perm
 
 EXPOSE 8000
 VOLUME /data
