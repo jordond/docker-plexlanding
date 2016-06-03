@@ -13,7 +13,10 @@ This is the preferred way of running Plex Landing
 
 ## Building
 
-**NOTE** Until I have published this to docker hub you will have to:
+Available on [docker hub](https://hub.docker.com/r/jordond/plexlanding/)
+
+### Manual
+
 - Clone the repo `git clone https://github.com/jordond/docker-plexlanding`
 - Change into directory `cd docker-plexlanding`
 - Build the docker image `docker build -t jordond/plexlanding .`
@@ -38,7 +41,7 @@ docker run -d \
   - _Only change the branch if you know what your doing, as master is the release branch_
 
 
-#License
+# License
 ```
 The MIT License (MIT)
 
